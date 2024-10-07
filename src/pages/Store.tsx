@@ -1,11 +1,15 @@
 import CartItems from "../components/CartItems"
+import Data from "../Data/Data"
 
 
 function Store() {
+  const cart = Data()
   return (
     <>
-    <section className=' grid grid-col-1 grid-rows-4 m-16 gap-10 justify-center mt-24'>
-         <CartItems Name={'computer'} Price={30000} id={1}/>
+    <section className='grid lg:grid-cols-2 lg:grid-rows-1 m-16 gap-10 justify-center mt-24'>
+        {cart.map(item => (
+          <CartItems Name={item.name} Price={item.price} id={item.id} photo={item.photo} />
+        ))}
     </section>
 
     </>
