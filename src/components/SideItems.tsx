@@ -1,16 +1,21 @@
 import { FaRegWindowClose } from "react-icons/fa";
 import Data from "../Data/Data";
-import { useshopingCart } from "../contexts/ShopingcartContext";
+import { useShoppingCart } from "../contexts/ShopingcartContext";
+
 
 type SideItemProps = {
   id: number;
   Quantity: number;
 };
 
+
+
 function SideItems({ id, Quantity }: SideItemProps) {
   const Cart = Data();
   const item = Cart.find(i => i.id === id);
-  const { RemoveItem } = useshopingCart()
+  const { removeItem, } = useShoppingCart();
+
+
 
   if (!item) return null;
 
@@ -20,7 +25,8 @@ function SideItems({ id, Quantity }: SideItemProps) {
   const totalPrice = price * quantity;
 
   return (
-    <div className="side-item border p-4 rounded-lg bg-gray-100 flex flex-row justify-between m-5">
+
+    <div key={item.id} className="side-item border p-4 rounded-lg bg-gray-100 flex flex-row justify-between m-5">
       <div className="flex flex-row gap-5">
         <img src={item.photo} alt={item.name} className="w-[70px] h-auto rounded-md" />
         <div>
@@ -30,7 +36,7 @@ function SideItems({ id, Quantity }: SideItemProps) {
       </div>
         <p>${totalPrice.toFixed(2)}</p> 
       <div className="relative">
-        <button onClick={() => RemoveItem(item.id)} className="absolute top-5 right-5">
+        <button onClick={() => removeItem(item.id)} className="absolute top-5 right-5">
           <FaRegWindowClose className="w-5 h-5 "/>
           </button>
       </div>
@@ -38,20 +44,6 @@ function SideItems({ id, Quantity }: SideItemProps) {
   );
 }
 
-function CartTotal() {
-  const Cart = Data();
-  
-  const total = Cart.reduce((acc, item) => {
-    const quantity = item.Quantity || 0;
-    const price = parseFloat(item.price.toString());
-    return acc + (price * quantity);
-  }, 0);
+export default SideItems
 
-  return (
-    <div className="total-price">
-      <h2>Total Price: ${total.toFixed(2)}</h2>
-    </div>
-  );
-}
 
-export default SideItems 
