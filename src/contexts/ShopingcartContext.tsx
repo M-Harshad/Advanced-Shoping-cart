@@ -29,7 +29,7 @@ export function useShoppingCart() {
 
 export function ShoppingCartProvider({ children }: { children: ReactNode }) {
     const [isOpen, setIsOpen] = useState(false);
-    const [cartItems, setCartItems] = useState<CartItem[]>([]);
+    const [cartItems, setCartItems] = useLocal<CartItem[]>([]);
 
     const cartQuantity = cartItems.reduce((quantity, item) => quantity + item.quantity, 0);
     console.log(cartItems)

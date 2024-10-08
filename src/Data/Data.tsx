@@ -8,13 +8,13 @@ function Data() {
     const cart = [
         {
         name: "computer",
-        price: 35000,
+        price: 350,
         id: 0,
         photo: Computer
       },
         {
         name: "Banana",
-        price: 999999999,
+        price: 100,
         id: 1,
         photo: Banana,
       },
@@ -26,7 +26,7 @@ function Data() {
       },
         {
         name: "shirt",
-        price: 20000,
+        price: 500,
         id: 3,
         photo: shirt,
       },
