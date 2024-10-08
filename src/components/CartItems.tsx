@@ -15,7 +15,7 @@ type CartItemsProps = {
 function CartItems({ Name, Price, id, photo }: CartItemsProps) {
   const { getItemQuantity, IncItemQuantity, decItemQuantity, RemoveItem } = useshopingCart();
   const quantity = getItemQuantity(id);
-
+  
 
   return (
     <section className="w-[400px] h-[200px] rounded-lg flex p-4 shadow-lg" key={id}>
