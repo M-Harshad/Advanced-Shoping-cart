@@ -24,5 +24,12 @@
         "id": 3,
         "photo": "./src/assets/shirt.jpg"
       }
+   ],
+   "cart":[
+    {
+      "id": 1,
+      "totalAmt": 0,
+      "carItems": []
+    }
    ]
 }
