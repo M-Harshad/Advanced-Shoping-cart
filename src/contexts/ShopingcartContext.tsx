@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
 import ShoppingCart from "../components/ShopingCart";
 import useLocalStorage from "../hooks/useLocalStorage";
 
@@ -9,12 +9,20 @@ type CartItem = {
     quantity: number;
 };
 
+type JsonData = {
+    name: string
+    id: number
+    price: number
+    photo: string
+};
+
 type ShoppingCartContextProps = {
     getItemQuantity: (id: number) => number;
     increaseItemQuantity: (id: number, price: number) => void;
     decreaseItemQuantity: (id: number) => void;
     removeItem: (id: number) => void;
     cartItems: CartItem[];
+    jsonData: JsonData[]; 
     cartQuantity: number;
     totalAmount: number; // Total amount calculation
     openCart: () => void;
@@ -33,6 +41,18 @@ export function ShoppingCartProvider({ children }: { children: ReactNode }) {
     const [cartItems, setCartItems] = useLocalStorage<CartItem[]>(
         "shopping-cart",
         []);
+    const [jsonData, setJsonData] = useState<JsonData[]>([]);
+    console.log(jsonData)
+
+    const fetchCartItems = async () => {
+        const response = await fetch('http://localhost:3000/products');
+        const data = await response.json();
+        setJsonData(data);
+    }
+
+    useEffect(() => {
+        fetchCartItems();
+    }, []);
 
     const cartQuantity = cartItems.reduce((quantity, item) => quantity + item.quantity, 0);
     const totalAmount = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
@@ -83,6 +103,7 @@ export function ShoppingCartProvider({ children }: { children: ReactNode }) {
             decreaseItemQuantity,
             removeItem,
             cartItems,
+            jsonData,
             cartQuantity,
             totalAmount,
             openCart,

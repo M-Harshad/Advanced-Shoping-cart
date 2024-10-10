@@ -1,0 +1,28 @@
+{
+   "products":[
+       {
+       "name": "computer",
+        "price": 350,
+        "id": 0,
+        "photo": "./src/assets/Computer.jpg"
+      },
+        {
+        "name": "Banana",
+        "price": 100,
+        "id": 1,
+        "photo": "./src/assets/Banana.jpg"
+      },
+        {
+        "name": "shoes",
+        "price": 3050,
+        "id": 2,
+        "photo": "./src/assets/shoes.webp"
+      },
+        {
+        "name": "shirt",
+        "price": 500,
+        "id": 3,
+        "photo": "./src/assets/shirt.jpg"
+      }
+   ]
+}

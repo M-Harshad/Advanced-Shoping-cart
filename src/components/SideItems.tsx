@@ -1,5 +1,4 @@
 import { FaRegWindowClose } from "react-icons/fa";
-import Data from "../Data/Data";
 import { useShoppingCart } from "../contexts/ShopingcartContext";
 
 
@@ -11,11 +10,11 @@ type SideItemProps = {
 
 
 function SideItems({ id, Quantity }: SideItemProps) {
-  const Cart = Data();
-  const item = Cart.find(i => i.id === id);
+  const {jsonData} = useShoppingCart()
+  const item = jsonData.find(i => i.id === id);
   const { removeItem, } = useShoppingCart();
 
-
+console.log(Quantity)
 
   if (!item) return null;
 

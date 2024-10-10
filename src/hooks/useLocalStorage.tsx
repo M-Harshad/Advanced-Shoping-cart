@@ -18,7 +18,7 @@ useEffect(() => {
     localStorage.setItem(Key , JSON.stringify(value))
 }, [Key, value])
 
-return [value , setValue] as [typeof Value, typeof setValue]
+return [value , setValue] as [typeof value, typeof setValue]
 }
 
 
