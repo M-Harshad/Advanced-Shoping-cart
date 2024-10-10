@@ -26,7 +26,7 @@ function SideItems({ id, Quantity }: SideItemProps) {
 
   return (
 
-    <div key={item.id} className="side-item border p-4 rounded-lg bg-gray-100 flex flex-row justify-between m-5">
+    <div key={item.id} className="side-item border p-4 rounded-lg bg-gray-100 flex flex-row justify-between m-5 ">
       <div className="flex flex-row gap-5">
         <img src={item.photo} alt={item.name} className="w-[70px] h-auto rounded-md" />
         <div>
