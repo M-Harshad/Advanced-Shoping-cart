@@ -1,4 +1,5 @@
 import { useShoppingCart } from "../contexts/ShopingcartContext";
+import useCart from "../CustomeHooks/UseCart";
 
 type CartItemProps = {
     name: string; // Updated to lowercase for consistency
@@ -8,7 +9,7 @@ type CartItemProps = {
 }
 
 function CartItem({ name, price, id, photo }: CartItemProps) {
-    const { getItemQuantity, increaseItemQuantity, decreaseItemQuantity, removeItem } = useShoppingCart(); // Renamed functions
+    const { getItemQuantity, increaseItemQuantity, decreaseItemQuantity, removeItem,} = useCart();
     const quantity = getItemQuantity(id);
 
     return (

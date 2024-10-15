@@ -1,9 +1,11 @@
 import { Outlet, NavLink } from "react-router-dom";
 import { FaShoppingCart } from "react-icons/fa";
 import { useShoppingCart } from "../contexts/ShopingcartContext";
+import useCart from "../CustomeHooks/UseCart";
 
 function NavBar() {
-    const { cartQuantity, openCart } = useShoppingCart(); // Corrected function name
+    const { openCart } = useShoppingCart(); // Corrected function name
+    const {cartQuantity} = useCart() 
 
     return (
         <>

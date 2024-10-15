@@ -1,13 +1,15 @@
 import { FaRegWindowClose } from "react-icons/fa";
 import SideItems from "./SideItems";
 import { useShoppingCart } from "../contexts/ShopingcartContext";
-
+import useCart from "../CustomeHooks/UseCart";
 type ShoppingCartProps = {
   isOpen?: boolean;
 };
 
 function ShoppingCart({ isOpen }: ShoppingCartProps) {
-  const {closeCart, cartItems, totalAmount} = useShoppingCart()
+  const {closeCart,} = useShoppingCart()
+  const {totalAmount, cart} = useCart()
+  const CartItems = cart.carItems
 
   return isOpen ? (
     <div className="grid grid-cols-[1fr_auto]">
@@ -17,7 +19,7 @@ function ShoppingCart({ isOpen }: ShoppingCartProps) {
         <button className="absolute top-4 right-5" onClick={() => closeCart()}>
           <FaRegWindowClose className="w-7 h-7"/>
         </button>
-        {cartItems.map(item => (
+        {CartItems.map(item => (
           <SideItems id={item.id} Quantity={item.quantity}/>
           
         ))}
