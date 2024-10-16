@@ -7,7 +7,7 @@ type ShoppingCartProps = {
 };
 
 function ShoppingCart({ isOpen }: ShoppingCartProps) {
-  const {closeCart,} = useShoppingCart()
+  const {closeCart} = useShoppingCart()
   const {totalAmount, cart} = useCart()
   const CartItems = cart.carItems
 
@@ -25,7 +25,7 @@ function ShoppingCart({ isOpen }: ShoppingCartProps) {
         ))}
           <p className="font-bold text-xl absolute bottom-5 right-3">Total: ${totalAmount}</p>
       </div>
-      <div className="bg-black opacity-80 h-full w-full absolute top-0 left-0"></div> {/* Background dim */}
+      <div  onClick={() => closeCart()} className="bg-black opacity-80 h-full w-full absolute top-0 left-0"></div> {/* Background dim */}
     </div>
   ) : null;
 }

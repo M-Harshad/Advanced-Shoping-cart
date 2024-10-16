@@ -3,7 +3,8 @@ import NavBar from "./pages/NavBar";
 import Home from "./pages/Home";
 import Store from "./pages/Store";
 import About from "./pages/About";
-
+import DashBord from "./pages/DashBord";
+import AddProduct from "./components/AddProdects";
 
 
 const router = createBrowserRouter([
@@ -28,6 +29,15 @@ const router = createBrowserRouter([
    
   ]
   },
+  {
+    path: "dashbord",
+    element: <DashBord />,
+    children: [{
+      path: "addProducts",
+      element: <AddProduct/>
+    }
+  ]
+  }
 
 ]);
 

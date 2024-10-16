@@ -1,13 +1,7 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
 import ShoppingCart from "../components/ShopingCart";
-import useLocalStorage from "../hooks/useLocalStorage";
+import Slider from "../components/Slider";
 
-type CartItem = {
-    id: number;
-    name: string; // Add item name for display
-    price: number; // Price per item
-    quantity: number;
-};
 
 type JsonData = {
     name: string
@@ -38,12 +32,14 @@ export function ShoppingCartProvider({ children }: { children: ReactNode }) {
         const response = await fetch('http://localhost:3000/products');
         const data = await response.json();
         setJsonData(data);
+
     }
-
-    useEffect(() => {
-        fetchCartItems();
-    }, []);
-
+    
+        useEffect(() => {
+            fetchCartItems();
+        }, []);
+    
+    
 
     const openCart = () => setIsOpen(true);
     const closeCart = () => setIsOpen(false);
