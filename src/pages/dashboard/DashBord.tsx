@@ -27,18 +27,19 @@ const DashBord: React.FC = () => {
     <Sider style={siderStyle}>
     <div style={{ padding: '16px' }}>
           <NavLink
-            to="addProducts" // Change this to your actual route
+            to="products" // Change this to your actual route
             style={({ isActive }) => ({
               display: 'block',
               padding: '10px 16px',
-              color: isActive ? 'white' : 'black',
+              color: isActive ? 'white' : 'white',
               backgroundColor: isActive ? '#1890ff' : 'transparent',
               borderRadius: '4px',
               textDecoration: 'none',
             })}
           >
-            <p>Add Products</p>
+            <p>Products</p>
           </NavLink>
+          
         </div>
       </Sider>
 

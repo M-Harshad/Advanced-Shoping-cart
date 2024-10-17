@@ -25,9 +25,15 @@
       "photo": "./src/assets/shirt.jpg"
     },
     {
-      "id": "8423",
-      "name": "dfgbhdbg",
-      "price": "ghisdhgis",
+      "id": 4,
+      "name": "apple",
+      "price": "35",
+      "image": null
+    },
+    {
+      "id": "5",
+      "name": "989",
+      "price": "667",
       "image": null
     }
   ],
