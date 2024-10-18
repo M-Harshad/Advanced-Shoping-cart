@@ -9,9 +9,12 @@ type Product = {
 
 type ProductsContextType = {
   productsData: Product[];
+  onAddProduct: (newProduct: { name: string; price: number }) => Promise<void>;
+  onEditProduct: (id: string, updatedProduct: { name: string; price: number }) => Promise<void>;
+  onDeleteProduct: (id: string) => Promise<void>;
+  fetchProducts: () => Promise<void>;
   loading: boolean;
   error: string | null;
-  refetch: () => Promise<void>;
 };
 
 const ProductsContext = createContext<ProductsContextType | undefined>(undefined);
@@ -37,14 +40,42 @@ export const ProductsProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       setLoading(false);
     }
   };
-  
 
   useEffect(() => {
     fetchProducts(); // Initial fetch
   }, []);
 
+  const onAddProduct = async (newProduct: { name: string; price: number }) => {
+    await fetch('http://localhost:3000/products', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newProduct),
+    });
+    fetchProducts(); // Refresh products after adding
+  };
+
+  const onEditProduct = async (id: string, updatedProduct: { name: string; price: number }) => {
+    await fetch(`http://localhost:3000/products/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updatedProduct),
+    });
+    fetchProducts(); // Refresh products after editing
+  };
+
+  const onDeleteProduct = async (id: string) => {
+    await fetch(`http://localhost:3000/products/${id}`, {
+      method: 'DELETE',
+    });
+    fetchProducts(); // Refresh products after deletion
+  };
+
   return (
-    <ProductsContext.Provider value={{ productsData, loading, error, refetch: fetchProducts }}>
+    <ProductsContext.Provider value={{ productsData, loading, error, onAddProduct, onEditProduct, onDeleteProduct, fetchProducts }}>
       {children}
     </ProductsContext.Provider>
   );

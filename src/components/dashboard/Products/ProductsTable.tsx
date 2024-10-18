@@ -1,6 +1,7 @@
 // components/ProductsTable.tsx
 import { Table, Button } from 'antd';
 import React from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 type Product = {
   id: string;
@@ -10,9 +11,6 @@ type Product = {
 
 type Props = {
     productsData: Product[];
-    refetchProducts: () => Promise<void>;
-    onAddProduct: (newProduct: { name: string; price: number }) => Promise<void>;
-    onEditProduct: (id: string, updatedProduct: { name: string; price: number }) => Promise<void>;
     onDeleteProduct: (id: string) => Promise<void>; // This should match the type
   };
 
@@ -20,30 +18,15 @@ type Props = {
   
   const ProductsTable: React.FC<Props> = ({
       productsData,
-      refetchProducts,
-      onAddProduct,
-      onEditProduct,
       onDeleteProduct,
     }) => {
-        const handleAddProduct = async () => {
-            const newProduct = { name: 'New Product', price: 0 }; // Replace with actual input
-            await onAddProduct(newProduct);
-            await refetchProducts(); // Refetch after adding
-        };
-        
-        const handleEditProduct = async (id: string) => {
-            const updatedProduct = { name: 'Updated Product', price: 20 }; // Replace with actual input
-            await onEditProduct(id, updatedProduct);
-            await refetchProducts(); // Refetch after editing
-        };
-        
+
+      const navigate = useNavigate()
+
         const handleDeleteProduct = async (id: string) => {
-            console.log('Deleting product with ID:', id); 
             await onDeleteProduct(id);
-            await refetchProducts(); // Refetch after deleting
         };
         
-        console.log('onDeleteProduct:', onDeleteProduct);
   const columns = [
     { title: 'ID', dataIndex: 'id', key: 'id' },
     { title: 'Name', dataIndex: 'name', key: 'name' },
@@ -62,7 +45,7 @@ type Props = {
       key: 'action',
       render: (text, record) => (
         <>
-          <Button onClick={() => handleEditProduct(record.id)}>Edit</Button>
+          <Button onClick={() => navigate(`/dashboard/products/update/${record.id}`)}>Edit</Button>
           <span style={{ margin: '0 8px' }}>|</span>
           <Button onClick={() => handleDeleteProduct(record.id)}>Delete</Button>
         </>
@@ -72,9 +55,11 @@ type Props = {
 
   return (
     <div>
-      <Button onClick={handleAddProduct} type="primary" style={{ marginBottom: 16 }}>
+      <NavLink to="/dashboard/products/create">
+      <Button type="primary" style={{ marginBottom: 16 }}>
         Add New Product
       </Button>
+      </NavLink>
       <Table
         dataSource={productsData.map(product => ({ ...product, key: product.id }))}
         columns={columns}

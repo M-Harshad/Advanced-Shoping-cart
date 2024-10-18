@@ -4,9 +4,9 @@ import Home from "./pages/Home";
 import Store from "./pages/Store";
 import About from "./pages/About";
 import DashBord from "./pages/dashboard/DashBord";
-import AddProduct from "./components/dashboard/AddProdects";
-import ProductManagement from "./components/dashboard/ProductManagement";
-import Products from "./pages/dashboard/Products";
+import Products from "./pages/dashboard/Products/Products";
+import CreateProduct from "./pages/dashboard/Products/CreateProduct";
+import UpdateProduct from "./pages/dashboard/Products/UpdateProduct";
 
 
 const router = createBrowserRouter([
@@ -32,23 +32,22 @@ const router = createBrowserRouter([
   ]
   },
   {
-    path: "dashbord",
+    path: "dashboard",
     element: <DashBord />,
     children: [
       {
       path: "products",
-      element: <Products/>
+      element: <Products/>,
+      },
+      {
+      path: "products/create",
+      element: <CreateProduct />
     },
-    {
-    path: "editproduct",
-    element: <ProductManagement />
-  },
-    {
-    path: "addproducts",
-    element: <AddProduct />
-  },
-    
-      
+      {
+      path: "products/update/:id",
+      element: <UpdateProduct />
+    },
+     
   ]
   }
 

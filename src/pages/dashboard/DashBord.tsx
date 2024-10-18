@@ -46,7 +46,7 @@ const DashBord: React.FC = () => {
       <Layout style={{ marginInlineStart: 200 }}>
 
         <Content style={{ overflow: 'initial' }}>
-          <div className='min-h-[650px] m-20'>
+          <div className='min-h-[500px] m-20'>
             <Outlet />
 
           </div>

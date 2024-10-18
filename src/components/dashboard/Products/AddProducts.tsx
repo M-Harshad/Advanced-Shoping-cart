@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Form, Input, message, Row, Col, Card } from 'antd';
 import type { FormProps } from 'antd';
+import { useNavigate } from 'react-router-dom';
 
 type FieldType = {
   name?: string;
   price?: number;
 };
 
-const ProductForm: React.FC = () => {
+const AddProducts: React.FC = () => {
   const [products, setProducts] = useState<any[]>([]);
+  const navigate = useNavigate()
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -26,26 +28,29 @@ const ProductForm: React.FC = () => {
 
   const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
     const { name, price } = values;
-
+  
+    // Convert price to a number
+    const numericPrice = parseFloat(price);
+  
     const existingProduct = products.find(
-      (product) => product.name === name && product.price === price
+      (product) => product.name === name && product.price === numericPrice
     );
-
+  
     if (existingProduct) {
       message.error('Product with the same name and price already exists.');
       return;
     }
-
+  
     // Determine the next ID as a string
     const nextId = (products.length > 0 ? Math.max(...products.map(p => parseInt(p.id))) + 1 : 1).toString();
-
+  
     const productData = {
-      id: nextId, // Use the next available ID as a string
+      id: nextId,
       name: name,
-      price: price,
+      price: numericPrice, // Use the converted numeric price
       image: null,
     };
-
+  
     try {
       const response = await fetch('http://localhost:3000/products', {
         method: 'POST',
@@ -54,11 +59,12 @@ const ProductForm: React.FC = () => {
         },
         body: JSON.stringify(productData),
       });
-
+  
       if (response.ok) {
         message.success('Product added successfully!');
         const newProduct = await response.json();
         setProducts((prev) => [...prev, newProduct]);
+        navigate('/dashboard/products')
       } else {
         message.error('Failed to add product.');
       }
@@ -67,6 +73,7 @@ const ProductForm: React.FC = () => {
       message.error('Error posting data.');
     }
   };
+  
 
   const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
     console.log('Failed:', errorInfo);
@@ -104,7 +111,7 @@ const ProductForm: React.FC = () => {
 
               <Form.Item wrapperCol={{ offset: 6, span: 18 }}>
                 <Button type="primary" htmlType="submit" style={{ borderRadius: '5px' }}>
-                  Submit
+                  Create
                 </Button>
               </Form.Item>
             </Form>
@@ -115,4 +122,4 @@ const ProductForm: React.FC = () => {
   );
 };
 
-export default ProductForm;
+export default AddProducts;
